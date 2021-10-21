@@ -1,0 +1,56 @@
+$(document).ready(function () {
+    'use strict';
+
+    var MAX_POSTS = 5, // BlogFeedWidget::BLOG_FEED_MAX_POSTS
+        MAX_EXCERPT_LENGTH = 500, // BlogFeedWidget::BLOG_FEED_MAX_EXCERPT_LENGTH
+        SHOW_ICON = true; // BlogFeedWidget::BLOG_FEED_SHOW_ICON
+
+    $('.widget.blogFeed').each(function () {
+        var jqThis = $(this),
+            blogUrl,
+            showIcon,
+            excerptLength,
+            postCount;
+
+        // check to see if this has been processed already
+        if (jqThis.hasClass('do-processed')) {
+            return;
+        }
+
+        blogUrl = jqThis.attr('data-blog-url');
+        showIcon = jqThis.attr('data-show-icon') || SHOW_ICON;
+        excerptLength = jqThis.attr('data-excerpt-length') || MAX_EXCERPT_LENGTH;
+        postCount = jqThis.attr('data-post-count') || MAX_POSTS;
+
+        if (!blogUrl) {
+            return;
+        }
+
+        window.setTimeout(function () {
+            // check to see if this has been processed already
+            // This check is important within this delayed function because
+            // the other check may have happened too early, causing multiple
+            // attempts to load the content
+            if (jqThis.hasClass('do-processed')) {
+                return;
+            }
+
+            jqThis.addClass('do-processed do-loading');
+
+            $.get(
+                '/blog/' + blogUrl,
+                {
+                    'action': 'getWidgetContent',
+                    'showIcon': showIcon,
+                    'excerptLength': excerptLength,
+                    'postCount': postCount
+                },
+                function (data) {
+                    jqThis.html(data)
+                        .removeClass('do-loading')
+                        .addClass('do-loaded');
+                }
+            );
+        }, 10);
+    });
+});

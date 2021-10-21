@@ -1,0 +1,76 @@
+﻿/*
+ * Responsive Menu - toggle visibility of menu items on click
+ */
+$(document).ready(function() {
+	'use strict';
+
+	// Show/Hide menu
+	$('.dropmenu, .dropmenu li').click(function(event) {
+		var target = $(this).find('ul:first');
+		$(target).toggleClass('active');
+		event.stopPropagation();
+	});
+	$('.menu-back').click(function() {
+		$(this).closest('ul').removeClass('active');
+	});
+	
+	// Show/hide search bar
+	$('.search-target').click(function(event) {
+		var target = $(this).next('.searchform');
+		$(target).toggleClass('active');
+		event.stopPropagation();
+	});
+	$('.search-clear').click(function() {
+		$(this).closest('.searchform').removeClass('active');
+	});
+	$('.site_search').click(function(event) {
+		event.stopPropagation();
+	});
+});
+
+$(document).ready(function () {
+    'use strict';
+
+    /*
+     *  Hide .fixed_autohide on on scroll down; Reveal on scroll up
+     * Adapted from Medium - https://medium.com/p/67bbaae9a78c
+     */
+    var didScroll,
+        lastScrollTop = 0,
+        delta = 5, //If they scrolled more than delta
+        fixedBarHeight = 0; //If they scrolled past the header height
+    
+    $(window).scroll(function (event){
+        didScroll = true;
+    });
+    
+    function hasScrolled() {
+        var st = $(window).scrollTop();
+        
+        // Make sure they scroll more than delta
+        if(Math.abs(lastScrollTop - st) <= delta) {
+           return;
+        }
+        
+        // If they scrolled down and are past the navbar, add class ..fixed_autohide_hidden.
+        // This is necessary so you never see what is "behind" the navbar.
+        if (st > lastScrollTop && st > fixedBarHeight){
+            // Scroll Down
+            $('.fixed_autohide').removeClass('fixed_autohide_visible').addClass('fixed_autohide_hidden');
+        } else {
+            // Scroll Up
+            if(st + $(window).height() < $(document).height()) {
+                $('.fixed_autohide').removeClass('fixed_autohide_hidden').addClass('fixed_autohide_visible');
+            }
+        }
+        
+        lastScrollTop = st;
+    }
+    
+    window.setInterval(function () {
+        if (didScroll) {
+            hasScrolled();
+            didScroll = false;
+        }
+    }, 250);
+});
