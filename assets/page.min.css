@@ -17,6 +17,14 @@ h1{
   font-size: 40px;
 }
 
+a.dark{
+  background-color: transparent;
+}
+
+a.dark:hover{
+  color: #BDB2A3;
+}
+
 .dark{
   background-color: var(--color-dark-2x);
   color: var(--color-light);
@@ -35,6 +43,10 @@ h1{
   height: 100vh;
   perspective: 2px;
   overflow-x: hidden;
+}
+
+.navbar-brand{
+  font-family: var(--font-header);
 }
 
 .parallax{
@@ -88,11 +100,11 @@ h1{
 }
 
 .static-4{
-  height: 45vh;
+  height: 50vh;
 }
 
 .static-5{
-  height: 85vh;
+  height: 100vh;
 }
 
 .triangle{
