@@ -147,6 +147,24 @@ a.dark:hover{
   top: 40vw;
 }
 
+/* Mobile */
+@media screen and (max-width: 600px) {
+  .parallax{
+    height: 300px;
+  }
+
+  .static{
+    padding-top: 0px;
+    padding-left: 20px;
+    padding-right: 5px;
+    margin-top: -5px;
+  }
+
+  .triangle-bottom-light-1{
+    border-bottom: 35vh solid var(--color-light);
+  }
+}
+
 @media screen and (min-width: 1240px) and (max-width: 1320px) {
   .parallax-1{
     background-position: 0px -250px;
@@ -157,4 +175,14 @@ a.dark:hover{
   .parallax-1{
     background-position: 0px -400px;
   }
+}
+
+.navbar-dark .navbar-toggler,
+.navbar-dark .navbar-toggler:hover,
+.navbar-dark .navbar-toggler:focus,
+.navbar-dark .navbar-toggler:active {
+  color: rgba(255,255,255,.55);
+  border-color: rgba(255,255,255,.1);
+  outline: none;
+  box-shadow: none;
 }
